@@ -1,13 +1,17 @@
 import { StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Avatar, Card, Text, Button } from 'react-native-paper';
 import { Icon, MD3Colors } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native'
+import { estadoGlobal } from '../../context/contextData';
 
 export default function ScreenHome() {
 
   const rutas = useNavigation();
 
+  const {sumar, restar, contador} = useContext(estadoGlobal)
+
+  console.log(contador);
   return (
     <View style={styles.body}>
       <Text style={styles.title}>ScreenHome</Text>
@@ -46,7 +50,14 @@ export default function ScreenHome() {
           Press me
         </Button>
       </Card>
+
+      <Card style={{ padding: 20, marginTop: 20 }}>
+        <Text> Suma total: {contador}</Text>
+        <Button onPress={()=>sumar()}>Sumar</Button>
+        <Button onPress={()=>restar()}>Restar</Button>
+      </Card>
     </View>
+
   );
 }
 

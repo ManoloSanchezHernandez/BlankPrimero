@@ -1,5 +1,7 @@
 //llamar los coomponente de lo que necesitamos 
 import React from "react";
+import { Text } from 'react-native';
+
 
 //importamos la libreria de Stack
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,18 +16,18 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 //llamar a los screen principales
-import ScreenAbout from "./screen/about/ScreenAbout";
-import ScreenHome from "./screen/home/ScreenHome";
-import ScreenSetting from "./screen/setting/ScreenSetting";
+import ScreenAbout from "./src/screen/about/ScreenAbout";
+import ScreenHome from "./src/screen/home/ScreenHome";
+import ScreenSetting from "./src/screen/setting/ScreenSetting";
 
 //llamara a hijos de Home
-import LucesCasa from "./screen/home/LucesCasa";
-import PuertasCasa from "./screen/home/PuertasCasa";
-import DetallesHome from "./screen/home/DetallesHome";
+import LucesCasa from "./src/screen/home/LucesCasa";
+import PuertasCasa from "./src/screen/home/PuertasCasa";
+import DetallesHome from "./src/screen/home/DetallesHome";
 
 // importamos los elementos de login
-import ScreenLogin from "./screen/login/ScreenLogin";
-import ScreenCreate from "./screen/login/ScreenCreate";
+import ScreenLogin from "./src/screen/login/ScreenLogin";
+import ScreenCreate from "./src/screen/login/ScreenCreate";
 
 const Tab = createBottomTabNavigator();
 
@@ -62,7 +64,7 @@ function MyDrawer() {
     return (
         <Drawer.Navigator>
             <Drawer.Screen name="Menu" component={MyStackHome} options={{
-                drawerLabel:{color: 'blue'},title: 'Dahsboard', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
+                title: 'Dahsboard', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
                 )
             }} />
             <Drawer.Screen name="notificaciones" component={MyStackHome} options={{
@@ -151,7 +153,7 @@ function MyTabs() {
     )
 }
 
-export default function Navigacion() {
+export default function Navegacion() {
     return (
         <MyDrawer />
     )
