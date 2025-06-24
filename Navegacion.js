@@ -1,15 +1,10 @@
 //llamar los coomponente de lo que necesitamos 
-import React from "react";
+import React, { useContext } from "react";
 import { Text } from 'react-native';
 
-
-//importamos la libreria de Stack
+//importamos las navegaciones que vamos a usar
 import { createStackNavigator } from "@react-navigation/stack";
-
-//importamos la livreria de Bottom
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-//importamos la libreria de Drawer
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -28,14 +23,13 @@ import DetallesHome from "./src/screen/home/DetallesHome";
 // importamos los elementos de login
 import ScreenLogin from "./src/screen/login/ScreenLogin";
 import ScreenCreate from "./src/screen/login/ScreenCreate";
+import { estadoLoginGlobal } from "./src/context/contextData";
 
+// declaramos las variables para el uso del nevegacion 
 const Tab = createBottomTabNavigator();
-
-//este es para poder usar lo que importamos recientemente
 const Stack = createStackNavigator();
-
-//aqui declaramos para usar el drwaer
 const Drawer = createDrawerNavigator();
+
 
 function MyStackHome() {
     return (
@@ -54,7 +48,6 @@ function MyStackLogin() {
         <Stack.Navigator>
             <Stack.Screen name='logins' component={ScreenLogin} />
             <Stack.Screen name='createaccount' component={ScreenCreate} />
-            <Stack.Screen name='menu' component={ScreenHome} />
         </Stack.Navigator>
     )
 }
@@ -68,15 +61,15 @@ function MyDrawer() {
                 )
             }} />
             <Drawer.Screen name="notificaciones" component={MyStackHome} options={{
-                title:'Notificaciones', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
+                title: 'Notificaciones', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
                 )
             }} />
             <Drawer.Screen name="perfil" component={MyStackHome} options={{
-                title:'Perfil' ,drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
+                title: 'Perfil', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
                 )
             }} />
             <Drawer.Screen name="setting" component={MyStackHome} options={{
-                title:'Configuraciones', drawerPosition: 'right', drawerIcon: ({ color, size }) => ( <FontAwesome name="heart" size={size} color={color} />
+                title: 'Configuraciones', drawerPosition: 'right', drawerIcon: ({ color, size }) => (<FontAwesome name="heart" size={size} color={color} />
                 )
             }} />
         </Drawer.Navigator>
@@ -105,7 +98,6 @@ function MyTabs() {
                     tabBarInactiveTintColor: 'rgba(99, 99, 99, 0.91)',
                     tabBarActiveBackgroundColor: 'rgba(180, 180, 177, 0.16)',
                     tabBarStyle: { position: 'absolute' },
-
                 }}
             />
 
@@ -154,7 +146,13 @@ function MyTabs() {
 }
 
 export default function Navegacion() {
+    const { isLogin } = useContext(estadoLoginGlobal);
+
+    console.log("Estado de login:", isLogin);
+
     return (
-        <MyDrawer />
-    )
+        <>
+            {isLogin ? <MyDrawer /> : <MyStackLogin />}
+        </>
+    );
 }

@@ -1,17 +1,20 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useContext } from 'react';
-import { Avatar, Card, Text, Button } from 'react-native-paper';
-import { Icon, MD3Colors } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native'
+import { Card, Text, Button, Icon } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import { estadoGlobal } from '../../context/contextData';
+import { estadoLoginGlobal } from '../../context/contextData';
+
 
 export default function ScreenHome() {
 
   const rutas = useNavigation();
 
-  const {sumar, restar, contador} = useContext(estadoGlobal)
-
+  const { sumar, restar, contador } = useContext(estadoGlobal)
   console.log(contador);
+  const { logout, isLogin } = useContext(estadoLoginGlobal);
+  console.log('Estado de login:', isLogin); // debería cambiar de true a false
+
   return (
     <View style={styles.body}>
       <Text style={styles.title}>ScreenHome</Text>
@@ -21,9 +24,8 @@ export default function ScreenHome() {
           color={'purple'}
           size={70}
         />
-
         <Button icon="arrow-right-thin" mode="contained" onPress={() => rutas.push('lucescasa')}>
-          Press me
+          Ver luces
         </Button>
       </Card>
 
@@ -33,9 +35,8 @@ export default function ScreenHome() {
           color={'purple'}
           size={70}
         />
-
         <Button icon="arrow-right-thin" mode="contained" onPress={() => rutas.push('puertascasa')}>
-          Press me
+          ver puertas
         </Button>
       </Card>
 
@@ -51,10 +52,19 @@ export default function ScreenHome() {
         </Button>
       </Card>
 
+      <Button
+        onPress={() => logout()}
+        mode="contained"
+        icon="logout"
+        style={{ marginTop: 20 }}
+      >
+        Cerrar Sesión
+      </Button>
+
       <Card style={{ padding: 20, marginTop: 20 }}>
         <Text> Suma total: {contador}</Text>
-        <Button onPress={()=>sumar()}>Sumar</Button>
-        <Button onPress={()=>restar()}>Restar</Button>
+        <Button onPress={() => sumar()}>Sumar</Button>
+        <Button onPress={() => restar()}>Restar</Button>
       </Card>
     </View>
 

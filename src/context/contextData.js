@@ -7,3 +7,6 @@ import React, { createContext } from "react";
 export const estadoGlobal = createContext()
 // export const estadoSeting = createContext()
 // export const estadoTema = createContext()
+
+//ahora usaremos este para poder anotar el estado del usuario si esta logeado
+export const estadoLoginGlobal = createContext()
